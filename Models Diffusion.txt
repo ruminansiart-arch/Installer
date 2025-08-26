@@ -1,0 +1,38 @@
+MODELS
+1. DreamShaper XL -  v2.1 Turbo DPM++ SDE
+2. Fantexi_realistic
+3. Pony Realism - v2.3 ULTRA
+4. majicMIX alpha
+5. CyberRealistic Pony - v12.7 Alt
+6. WAI-ANI-NSFW-PONYXL - v14.0
+7. MeichiDarkMix_Reload - MeichiDarK_Lust_V3
+8. MeichiDarkMix_Reload - MeichiDarK_Sensual_V3
+9. iNiverse Mix(SFW & NSFW) - Pony Real GuoFeng V5.1
+10. Realism By Stable Yogi (Pony) - V5_XL_FP16
+
+1. https://civitai.com/api/download/models/351306?type=Model&format=SafeTensor&size=full&fp=fp16
+2. https://civitai.com/api/download/models/146134?type=Model&format=SafeTensor&size=pruned&fp=fp16
+3. https://civitai.com/api/download/models/222240?type=Model&format=SafeTensor&size=pruned&fp=fp16
+4. https://civitai.com/api/download/models/1920896?type=Model&format=SafeTensor&size=full&fp=fp16
+5. https://civitai.com/api/download/models/2071650?type=Model&format=SafeTensor&size=pruned&fp=fp16
+6. https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16
+7. https://civitai.com/api/download/models/770375?type=Model&format=SafeTensor&size=pruned&fp=fp16
+8. https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16
+9. https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16
+
+
+LORA
+1 ExpressiveH (Hentai LoRa Style) エロアニメ - ExpressiveH
+2. All Disney Princess XL LoRA Model from Ralph Breaks the Internet - v2.0 - LoRA
+
+1. https://civitai.com/api/download/models/382152?type=Model&format=SafeTensor
+2. https://civitai.com/api/download/models/244808?type=Model&format=SafeTensor
+
+EXTENSIONS
+1. "https://github.com/Bing-su/adetailer.git",
+2. "https://github.com/Avaray/lora-keywords-finder.git",
+3. "https://github.com/Mikubill/sd-webui-controlnet.git",
+4. "https://github.com/tritant/sd-webui-creaprompt.git",
+5. "https://github.com/MINENEMA/sd-webui-quickrecents.git"
+
+

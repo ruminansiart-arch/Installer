@@ -1,0 +1,13 @@
+RunPod File Structure
+
+workspace/
+├── ComfyUI_Workflows/
+├── ENVS/
+│   ├── Conda_P3.10/ (Conda environment only)
+│   └── Conda_P3.11/ (Conda environment only)
+├── Installer/
+│   ├── AI APP/
+│   ├── DOWNLOADER/
+│   └── SYSTEM/
+└── ComfyUI/ (Actual ComfyUI installation - Conda_P3.11)
+└── stable-diffusion-webui/ (Actual sdwebui installation - Conda_P3.10)
