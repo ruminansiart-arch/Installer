@@ -30,11 +30,103 @@ def download_file(url, destination):
         print(f"Error downloading {url}: {e}")
         return False
 
-def get_filename_from_url(url):
-    """Extract filename from URL"""
-    parsed_url = urllib.parse.urlparse(url)
-    if 'content-disposition' in requests.head(url).headers:
-        content_disp = requests.head(url).headers['content-disposition']
+def setup_directories():
+    """Create necessary directories in /workspace"""
+    base_dir = "/workspace"
+    webui_dir = os.path.join(base_dir, "stable-diffusion-webui")
+    
+    directories = {
+        'models': os.path.join(webui_dir, "models", "Stable-diffusion"),
+        'loras': os.path.join(webui_dir, "models", "Lora"),
+        'extensions': os.path.join(webui_dir, "extensions")
+    }
+    
+    for dir_path in directories.values():
+        os.makedirs(dir_path, exist_ok=True)
+        print(f"Created directory: {dir_path}")
+    
+    return directories
+
+def download_models(directories):
+    """Download all models with proper filenames"""
+    model_mapping = {
+        "https://civitai.com/api/download/models/351306?type=Model&format=SafeTensor&size=full&fp=fp16": "DreamShaper_XL.safetensors",
+        "https://civitai.com/api/download/models/146134?type=Model&format=SafeTensor&size=pruned&fp=fp16": "FantexiRealistic.safetensors",
+        "https://civitai.com/api/download/models/222240?type=Model&format=SafeTensor&size=pruned&fp=fp16": "MajicMixAlpha.safetensors",
+        "https://civitai.com/api/download/models/1920896?type=Model&format=SafeTensor&size=full&fp=fp16": "PonyRealism_XL.safetensors",
+        "https://civitai.com/api/download/models/2071650?type=Model&format=SafeTensor&size=pruned&fp=fp16": "CyberRealistic_PonyXL.safetensors",
+        "https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16": "WaiAniNSFW_PonyXL.safetensors",
+        "https://civitai.com/api/download/models/770375?type=Model&format=SafeTensor&size=pruned&fp=fp16": "MeichiDarkMixReload_XL.safetensors",
+        "https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16": "IniVerseMixSFWNSFW_XL.safetensors",
+        "https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16": "RealismbyStableYogi_XL.safetensors"
+    }
+    
+    for url, filename in model_mapping.items():
+        destination = os.path.join(directories['models'], filename)
+        download_file(url, destination)
+
+def download_loras(directories):
+    """Download all LORAs with proper filenames"""
+    lora_mapping = {
+        "https://civitai.com/api/download/models/382152?type=Model&format=SafeTensor": "ExpressiveH.safetensors",
+        "https://civitai.com/api/download/models/244808?type=Model&format=SafeTensor": "DisneyPrincess.safetensors"
+    }
+    
+    for url, filename in lora_mapping.items():
+        destination = os.path.join(directories['loras'], filename)
+        download_file(url, destination)
+
+def install_extensions(directories):
+    """Install all extensions using git"""
+    extension_urls = [
+        "https://github.com/Bing-su/adetailer.git",
+        "https://github.com/Avaray/lora-keywords-finder.git",
+        "https://github.com/Mikubill/sd-webui-controlnet.git",
+        "https://github.com/tritant/sd-webui-creaprompt.git",
+        "https://github.com/MINENEMA/sd-webui-quickrecents.git"
+    ]
+    
+    for url in extension_urls:
+        try:
+            # Extract repository name from URL
+            repo_name = url.split('/')[-1].replace('.git', '')
+            extension_dir = os.path.join(directories['extensions'], repo_name)
+            
+            print(f"Installing extension: {repo_name}")
+            
+            # Clone the repository
+            result = subprocess.run([
+                'git', 'clone', '--depth', '1', url, extension_dir
+            ], capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                print(f"Successfully installed: {repo_name}")
+            else:
+                print(f"Failed to install {repo_name}: {result.stderr}")
+                
+        except Exception as e:
+            print(f"Error installing extension {url}: {e}")
+
+def main():
+    print("Setting up Automatic1111 downloader for /workspace...")
+    
+    # Setup directories
+    directories = setup_directories()
+    
+    print("\n=== Downloading Models ===")
+    download_models(directories)
+    
+    print("\n=== Downloading LORAs ===")
+    download_loras(directories)
+    
+    print("\n=== Installing Extensions ===")
+    install_extensions(directories)
+    
+    print("\n=== Download and installation completed! ===")
+    print("Files are located in /workspace/stable-diffusion-webui/")
+
+if __name__ == "__main__":
+    main()        content_disp = requests.head(url).headers['content-disposition']
         if 'filename=' in content_disp:
             return content_disp.split('filename=')[1].strip('"')
     
@@ -149,3 +241,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
