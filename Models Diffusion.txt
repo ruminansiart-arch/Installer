@@ -1,4 +1,5 @@
 MODELS
+Stable-diffusion
 1. DreamShaper XL -  v2.1 Turbo DPM++ SDE
 2. Fantexi_realistic
 3. Pony Realism - v2.3 ULTRA
@@ -10,31 +11,86 @@ MODELS
 9. iNiverse Mix(SFW & NSFW) - Pony Real GuoFeng V5.1
 10. Realism By Stable Yogi (Pony) - V5_XL_FP16
 
-1. https://civitai.com/api/download/models/351306?type=Model&format=SafeTensor&size=full&fp=fp16
-2. https://civitai.com/api/download/models/146134?type=Model&format=SafeTensor&size=pruned&fp=fp16
-3. https://civitai.com/api/download/models/222240?type=Model&format=SafeTensor&size=pruned&fp=fp16
-4. https://civitai.com/api/download/models/1920896?type=Model&format=SafeTensor&size=full&fp=fp16
-5. https://civitai.com/api/download/models/2071650?type=Model&format=SafeTensor&size=pruned&fp=fp16
-6. https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16
-7. https://civitai.com/api/download/models/1207111?type=Model&format=SafeTensor&size=full&fp=fp16
-8. https://civitai.com/api/download/models/1183299?type=Model&format=SafeTensor&size=pruned&fp=fp16
-9. https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16
-10. https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16
+1a. https://civitai.com/api/download/models/351306?type=Model&format=SafeTensor&size=full&fp=fp16
+2a. https://civitai.com/api/download/models/146134?type=Model&format=SafeTensor&size=pruned&fp=fp16
+3a. https://civitai.com/api/download/models/222240?type=Model&format=SafeTensor&size=pruned&fp=fp16
+4a. https://civitai.com/api/download/models/1920896?type=Model&format=SafeTensor&size=full&fp=fp16
+5a. https://civitai.com/api/download/models/2071650?type=Model&format=SafeTensor&size=pruned&fp=fp16
+6a. https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16
+7a. https://civitai.com/api/download/models/1207111?type=Model&format=SafeTensor&size=full&fp=fp16
+8a. https://civitai.com/api/download/models/1183299?type=Model&format=SafeTensor&size=pruned&fp=fp16
+9a. https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16
+10a. https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16
 
+MODELS
+Codeformer
+1. codeformer.pth
+1a. https://huggingface.co/alexgenovese/facerestore/resolve/a957c0a70e7dfa88fdde05dcc8d7657feb17b8a3/codeformer.pth?download=true
+
+MODELS
+ControlNet
+1. control_depth-fp16.safetensors
+2. control_instant_id_sdxl.safetensors
+3. control_v11f1p_sd15_depth.pth
+4. ip-adapter_instant_id_sdxl.bin
+
+1a. https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_depth-fp16.safetensors?download=true
+2a. https://huggingface.co/StableDiffusionVN/XLControlnet/resolve/663185e727e22d694a8d58ce574bcc3fec120383/control_instant_id_sdxl.safetensors?download=true
+3a. https://huggingface.co/lllyasviel/ControlNet-v1-1/resolve/main/control_v11f1p_sd15_depth.pth?download=true
+4a. https://huggingface.co/Aitrepreneur/InstantiDA1111/resolve/main/ip-adapter_instant_id_sdxl.bin?download=true
+
+MODELS
+ESRGAN
+1. 4x-UltraSharp.pth
+2. ESRGAN_4x.pth
+3. RealESRGAN_x2plus.pth
+
+1a. https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth?download=true
+2a. https://huggingface.co/ffxvs/upscaler/resolve/f8edf6d7f286acdd70178a6ff0c736fc592e818e/ESRGAN_4x.pth?download=true
+3a. https://huggingface.co/dtarnow/UPscaler/resolve/main/RealESRGAN_x2plus.pth?download=true
+
+MODELS
+Remacri
+1. 4x_foolhardy_Remacri.pth
+1a. https://huggingface.co/dtarnow/UPscaler/resolve/main/4x_foolhardy_Remacri.pth?download=true
+
+MODELS
+DFPGAN
+1. detection_Resnet50_Final.pth
+2. GFPGANv1.4.pth
+3. parsing_parsenet.pth
+4. alignment_WFLW_4HG.pth
+
+1a. https://huggingface.co/xjyplayer/stable-diffusion-models/resolve/bd90619e26e9acf4629018bacc93b8815cbcbb74/detection_Resnet50_Final.pth?download=true
+2a. https://huggingface.co/gmk123/GFPGAN/resolve/main/GFPGANv1.4.pth?download=true
+3a. https://huggingface.co/gmk123/GFPGAN/resolve/main/parsing_parsenet.pth?download=true
+4a. https://huggingface.co/gmk123/GFPGAN/resolve/main/alignment_WFLW_4HG.pth?download=true
+
+MODELS
+RealESRGAN
+1. RealESRGAN_x4plus.pth
+2. RealESRGAN_x4plus_anime_6B.pth
+
+1a. https://huggingface.co/lllyasviel/Annotators/resolve/main/RealESRGAN_x4plus.pth?download=true
+2a. https://huggingface.co/ac-pill/upscale_models/resolve/main/RealESRGAN_x4plus_anime_6B.pth?download=true
 
 LORA
-1 ExpressiveH (Hentai LoRa Style) エロアニメ - ExpressiveH
+1. ExpressiveH (Hentai LoRa Style) エロアニメ - ExpressiveH
 2. All Disney Princess XL LoRA Model from Ralph Breaks the Internet - v2.0 - LoRA
 
-1. https://civitai.com/api/download/models/382152?type=Model&format=SafeTensor
-2. https://civitai.com/api/download/models/244808?type=Model&format=SafeTensor
+1a. https://civitai.com/api/download/models/382152?type=Model&format=SafeTensor
+2a. https://civitai.com/api/download/models/244808?type=Model&format=SafeTensor
 
 EXTENSIONS
-1. "https://github.com/Bing-su/adetailer.git",
-2. "https://github.com/Avaray/lora-keywords-finder.git",
-3. "https://github.com/Mikubill/sd-webui-controlnet.git",
-4. "https://github.com/tritant/sd-webui-creaprompt.git",
-5. "https://github.com/MINENEMA/sd-webui-quickrecents.git"
+1a. "https://github.com/Bing-su/adetailer.git",
+2a. "https://github.com/Avaray/lora-keywords-finder.git",
+3a. "https://github.com/Mikubill/sd-webui-controlnet.git",
+4a. "https://github.com/tritant/sd-webui-creaprompt.git",
+5a. "https://github.com/MINENEMA/sd-webui-quickrecents.git"
+
+
+
+
 
 
 
