@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Activate Conda environment
-source /workspace/ENVS/Conda_P3.10/bin/activate
+exec conda activate /workspace/ENVS/Conda_P3.10
 
 # Change directory and launch
 cd /workspace/stable-diffusion-webui
