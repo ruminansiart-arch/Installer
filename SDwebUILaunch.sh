@@ -5,4 +5,4 @@ exec conda activate /workspace/ENVS/Conda_P3.10
 
 # Change directory and launch
 cd /workspace/stable-diffusion-webui
-exec python launch.py --listen --port 8288 --xformers --theme dark
+exec python launch.py --listen --port 8288 --no-download-sd-model --xformers --no-half-vae --theme dark
