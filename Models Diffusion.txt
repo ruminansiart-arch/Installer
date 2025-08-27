@@ -16,9 +16,10 @@ MODELS
 4. https://civitai.com/api/download/models/1920896?type=Model&format=SafeTensor&size=full&fp=fp16
 5. https://civitai.com/api/download/models/2071650?type=Model&format=SafeTensor&size=pruned&fp=fp16
 6. https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16
-7. https://civitai.com/api/download/models/770375?type=Model&format=SafeTensor&size=pruned&fp=fp16
-8. https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16
-9. https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16
+7. https://civitai.com/api/download/models/1207111?type=Model&format=SafeTensor&size=full&fp=fp16
+8. https://civitai.com/api/download/models/1183299?type=Model&format=SafeTensor&size=pruned&fp=fp16
+9. https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16
+10. https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16
 
 
 LORA
@@ -34,5 +35,6 @@ EXTENSIONS
 3. "https://github.com/Mikubill/sd-webui-controlnet.git",
 4. "https://github.com/tritant/sd-webui-creaprompt.git",
 5. "https://github.com/MINENEMA/sd-webui-quickrecents.git"
+
 
 
