@@ -112,144 +112,6 @@ class WebUIInstaller:
             print(f"✗ Error cloning repository: {str(e)}")
             return False
     
-    def install_webui_dependencies(self):
-        """Install WebUI dependencies using the conda environment"""
-        print("Installing WebUI dependencies...")
-        
-        env_path = self.envs_dir / "Conda_P3.10"
-        
-        # Install torch and other dependencies first
-        try:
-            # Activate conda environment and install requirements
-            install_cmd = [
-                "conda", "run", "--prefix", str(env_path),
-                "pip", "install",
-                "torch", "torchvision", "torchaudio",
-                "--index-url", "https://download.pytorch.org/whl/cu118"
-            ]
-            
-            result = subprocess.run(install_cmd, capture_output=True, text=True)
-            
-            if result.returncode == 0:
-                print("✓ PyTorch installed successfully")
-            else:
-                print(f"✗ Failed to install PyTorch: {result.stderr}")
-                return False
-                
-            # Install other requirements from the webui repository
-            requirements_file = self.webui_dir / "requirements.txt"
-            if requirements_file.exists():
-                install_cmd = [
-                    "conda", "run", "--prefix", str(env_path),
-                    "pip", "install", "-r", str(requirements_file)
-                ]
-                
-                result = subprocess.run(install_cmd, capture_output=True, text=True)
-                
-                if result.returncode == 0:
-                    print("✓ WebUI requirements installed successfully")
-                    return True
-                else:
-                    print(f"✗ Failed to install requirements: {result.stderr}")
-                    return False
-            else:
-                print("⚠ Requirements file not found, trying to install xformers and other essentials")
-                
-                # Install essential packages if requirements.txt is missing
-                essential_packages = [
-                    "xformers", "transformers", "accelerate",
-                    "diffusers", "open-clip-torch", "clip",
-                    "numpy", "pillow", "scipy", "tqdm",
-                    "requests", "ftfy", "ipywidgets"
-                ]
-                
-                install_cmd = [
-                    "conda", "run", "--prefix", str(env_path),
-                    "pip", "install"
-                ] + essential_packages
-                
-                result = subprocess.run(install_cmd, capture_output=True, text=True)
-                
-                if result.returncode == 0:
-                    print("✓ Essential packages installed successfully")
-                    return True
-                else:
-                    print(f"✗ Failed to install essential packages: {result.stderr}")
-                    return False
-                
-        except Exception as e:
-            print(f"✗ Error installing dependencies: {str(e)}")
-            return False
-    
-    def create_launch_script(self):
-        """Create a launch script for the WebUI"""
-        print("Creating launch script...")
-        
-        launch_script = self.installer_dir / "AI APP" / "launch_webui.sh"
-        env_path = self.envs_dir / "Conda_P3.10"
-        
-        script_content = f"""#!/bin/bash
-# Automatic1111 WebUI Launch Script
-export CONDA_ENV_PATH="{env_path}"
-export WEBUI_DIR="{self.webui_dir}"
-
-# Activate conda environment
-source activate "$CONDA_ENV_PATH"
-
-# Navigate to WebUI directory
-cd "$WEBUI_DIR"
-
-# Set environment variables for GPU acceleration
-export COMMANDLINE_ARGS="--listen --port 7860 --enable-insecure-extension-access --xformers"
-
-# Launch the WebUI
-python launch.py $COMMANDLINE_ARGS
-"""
-        
-        try:
-            with open(launch_script, 'w') as f:
-                f.write(script_content)
-            
-            # Make the script executable
-            os.chmod(launch_script, 0o755)
-            print(f"✓ Launch script created: {launch_script}")
-            return True
-            
-        except Exception as e:
-            print(f"✗ Error creating launch script: {str(e)}")
-            return False
-    
-    def create_conda_activation_script(self):
-        """Create a script to activate the conda environment"""
-        print("Creating conda activation script...")
-        
-        activation_script = self.installer_dir / "SYSTEM" / "activate_env.sh"
-        env_path = self.envs_dir / "Conda_P3.10"
-        
-        script_content = f"""#!/bin/bash
-# Script to activate the Conda environment for Automatic1111 WebUI
-export CONDA_ENV_PATH="{env_path}"
-
-# Activate conda environment
-source activate "$CONDA_ENV_PATH"
-
-echo "Conda environment activated: $CONDA_ENV_PATH"
-echo "WebUI directory: {self.webui_dir}"
-"""
-        
-        try:
-            with open(activation_script, 'w') as f:
-                f.write(script_content)
-            
-            # Make the script executable
-            os.chmod(activation_script, 0o755)
-            print(f"✓ Conda activation script created: {activation_script}")
-            return True
-            
-        except Exception as e:
-            print(f"✗ Error creating conda activation script: {str(e)}")
-            return False
-    
     def install(self):
         """Run the complete installation process"""
         print("Starting Automatic1111 WebUI installation in /workspace...")
@@ -273,32 +135,15 @@ echo "WebUI directory: {self.webui_dir}"
             print("Failed to clone WebUI repository.")
             return False
         
-        # Install dependencies
-        if not self.install_webui_dependencies():
-            print("Failed to install WebUI dependencies.")
-            return False
-        
-        # Create launch script
-        if not self.create_launch_script():
-            print("Failed to create launch script.")
-            return False
-            
-        # Create conda activation script
-        if not self.create_conda_activation_script():
-            print("Failed to create conda activation script.")
-            return False
-        
         print("\n" + "="*60)
         print("Installation completed successfully!")
         print("="*60)
         print(f"WebUI installed at: {self.webui_dir}")
         print(f"Conda environment: {self.envs_dir / 'Conda_P3.10'}")
-        print(f"Launch script: {self.installer_dir / 'AI APP' / 'launch_webui.sh'}")
-        print(f"Activation script: {self.installer_dir / 'SYSTEM' / 'activate_env.sh'}")
-        print("\nTo start the WebUI, run:")
-        print(f"  bash {self.installer_dir / 'AI APP' / 'launch_webui.sh'}")
-        print("\nTo activate the environment for manual use:")
-        print(f"  source {self.installer_dir / 'SYSTEM' / 'activate_env.sh'}")
+        print("\nTo start the WebUI, navigate to the directory and run:")
+        print(f"  cd {self.webui_dir}")
+        print("  bash webui-user.sh")
+        print("\nDependencies will be installed automatically by webui-user.sh on first run")
         
         return True
 
