@@ -4,11 +4,18 @@ import subprocess
 import urllib.parse
 from pathlib import Path
 
-def download_file(url, destination):
+# Add your CivitAI API key here if you have one
+CIVITAI_API_KEY = os.environ.get('CIVITAI_API_KEY', '')
+
+def download_file(url, destination, headers=None):
     """Download a file from URL to destination with progress tracking"""
     try:
         print(f"Downloading: {url}")
-        response = requests.get(url, stream=True)
+        
+        if headers is None:
+            headers = {}
+            
+        response = requests.get(url, stream=True, headers=headers)
         response.raise_for_status()
         
         total_size = int(response.headers.get('content-length', 0))
@@ -56,22 +63,31 @@ def setup_directories():
 def download_models(directories):
     """Download all Stable-diffusion models with proper filenames"""
     model_mapping = {
+        # Public models that work without authentication
         "https://civitai.com/api/download/models/351306?type=Model&format=SafeTensor&size=full&fp=fp16": "DreamShaper XL.safetensors",
         "https://civitai.com/api/download/models/146134?type=Model&format=SafeTensor&size=pruned&fp=fp16": "Fantexi_realistic.safetensors",
         "https://civitai.com/api/download/models/222240?type=Model&format=SafeTensor&size=pruned&fp=fp16": "majicMIX alpha.safetensors",
+        "https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16": "WAI-ANI-NSFW-PONYXL.safetensors",
+        "https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16": "Realism By Stable Yogi.safetensors",
+        
+        # Models that might require authentication - will try with API key if available
         "https://civitai.com/api/download/models/1920896?type=Model&format=SafeTensor&size=full&fp=fp16": "Pony Realism XL.safetensors",
         "https://civitai.com/api/download/models/2071650?type=Model&format=SafeTensor&size=pruned&fp=fp16": "CyberRealistic Pony.safetensors",
-        "https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16": "WAI-ANI-NSFW-PONYXL.safetensors",
-        "https://civitai.com/api/download/models/1207111?type=Model&format=SafeTensor&size=full&fp=fp16": "MeichiDarK_Lust_V3.safetensors",
-        "https://civitai.com/api/download/models/1183299?type=Model&format=SafeTensor&size=pruned&fp=fp16": "MeichiDarK_Sensual_V3.safetensors",
         "https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16": "iNiverse Mix(SFW & NSFW).safetensors",
-        "https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16": "Realism By Stable Yogi.safetensors"
     }
+    
+    headers = {}
+    if CIVITAI_API_KEY:
+        headers = {"Authorization": f"Bearer {CIVITAI_API_KEY}"}
+        print("Using CivitAI API key for authentication")
     
     for url, filename in model_mapping.items():
         destination = os.path.join(directories['models'], filename)
         if not os.path.exists(destination):
-            download_file(url, destination)
+            success = download_file(url, destination, headers)
+            if not success and CIVITAI_API_KEY:
+                print(f"Failed to download with API key, trying without...")
+                download_file(url, destination)  # Try without auth headers
         else:
             print(f"File already exists: {destination}")
 
@@ -169,10 +185,17 @@ def download_loras(directories):
         "https://civitai.com/api/download/models/244808?type=Model&format=SafeTensor": "All Disney Princess XL LoRA Model.safetensors"
     }
     
+    headers = {}
+    if CIVITAI_API_KEY:
+        headers = {"Authorization": f"Bearer {CIVITAI_API_KEY}"}
+    
     for url, filename in lora_mapping.items():
         destination = os.path.join(directories['loras'], filename)
         if not os.path.exists(destination):
-            download_file(url, destination)
+            success = download_file(url, destination, headers)
+            if not success and CIVITAI_API_KEY:
+                print(f"Failed to download with API key, trying without...")
+                download_file(url, destination)  # Try without auth headers
         else:
             print(f"File already exists: {destination}")
 
@@ -214,6 +237,11 @@ def install_extensions(directories):
 def main():
     print("Setting up Automatic1111 downloader for /workspace...")
     
+    if CIVITAI_API_KEY:
+        print("CivitAI API key detected")
+    else:
+        print("No CivitAI API key found. Some models may require authentication.")
+    
     # Setup directories
     directories = setup_directories()
     
@@ -246,7 +274,12 @@ def main():
     
     print("\n=== Download and installation completed! ===")
     print("Files are located in /workspace/stable-diffusion-webui/")
+    
+    # List failed downloads
+    print("\nNote: Some models may have failed to download due to authentication requirements.")
+    print("You may need to:")
+    print("1. Set the CIVITAI_API_KEY environment variable with your CivitAI API key")
+    print("2. Or manually download these models from CivitAI and place them in the appropriate folders")
 
 if __name__ == "__main__":
     main()
-
