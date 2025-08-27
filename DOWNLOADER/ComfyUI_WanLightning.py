@@ -11,11 +11,11 @@ import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
-# Configuration - UPDATED PATH
-COMFYUI_PATH = "/workspace/ENVS/AI/envs/ComfyUI"
+# Configuration - UPDATED PATH according to workspace structure
+COMFYUI_PATH = "/workspace/ComfyUI"
 MODEL_URLS = [
-    "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_high_noise_14B_fp8_scaled.safetensors",
-    "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_i2v_low_noise_14B_fp8_scaled.safetensors",
+    "https://huggingface.co/bullerwins/Wan2.2-I2V-A14B-GGUF/resolve/main/wan2.2_i2v_high_noise_14B_Q6_K.gguf",
+    "https://huggingface.co/bullerwins/Wan2.2-I2V-A14B-GGUF/resolve/main/wan2.2_i2v_low_noise_14B_Q6_K.gguf",
     "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors",
     "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
     "https://huggingface.co/Kijai/WanVideo_comfy/resolve/main/Lightx2v/lightx2v_I2V_14B_480p_cfg_step_distill_rank64_bf16.safetensors"
@@ -24,7 +24,8 @@ MODEL_URLS = [
 # Xet repository mapping (HuggingFace URL to Xet path)
 XET_REPO_MAPPING = {
     "Comfy-Org/Wan_2.2_ComfyUI_Repackaged": "xet://XetHub/ComfyUI-Models/main/Comfy-Org/Wan_2.2_ComfyUI_Repackaged",
-    "Kijai/WanVideo_comfy": "xet://XetHub/ComfyUI-Models/main/Kijai/WanVideo_comfy"
+    "Kijai/WanVideo_comfy": "xet://XetHub/ComfyUI-Models/main/Kijai/WanVideo_comfy",
+    "bullerwins/Wan2.2-I2V-A14B-GGUF": "xet://XetHub/ComfyUI-Models/main/bullerwins/Wan2.2-I2V-A14B-GGUF"
 }
 
 def check_xet_installed():
@@ -109,7 +110,7 @@ def download_with_requests(url, destination):
 def create_directories():
     """Create the required directory structure in ComfyUI"""
     directories = [
-        "models/diffusion_models",  # CHANGED: diffusion_models instead of diffusion
+        "models/diffusion_models",  # For GGUF models and other diffusion models
         "models/vae",
         "models/clip"
     ]
@@ -123,8 +124,11 @@ def get_destination_path(url):
     """Determine the destination path based on URL content"""
     filename = os.path.basename(urlparse(url).path)
     
-    # CHANGED: All diffusion models go to models/diffusion_models/
-    if "diffusion_models" in url or "Lightx2v" in url:
+    # GGUF models go to models/diffusion_models/
+    if "wan2.2_i2v" in url and url.endswith(".gguf"):
+        return os.path.join(COMFYUI_PATH, "models", "diffusion_models", filename)
+    # Other diffusion models
+    elif "diffusion_models" in url or "Lightx2v" in url:
         return os.path.join(COMFYUI_PATH, "models", "diffusion_models", filename)
     elif "vae" in url:
         return os.path.join(COMFYUI_PATH, "models", "vae", filename)
@@ -227,7 +231,7 @@ def main():
     if success_count == len(MODEL_URLS):
         print("\n🎉 All files downloaded successfully!")
         print("\n📍 Files are located in:")
-        print(f"   Diffusion models: {COMFYUI_PATH}/models/diffusion_models/")  # UPDATED
+        print(f"   Diffusion models: {COMFYUI_PATH}/models/diffusion_models/")
         print(f"   VAE models: {COMFYUI_PATH}/models/vae/")
         print(f"   Text encoders: {COMFYUI_PATH}/models/clip/")
     else:
