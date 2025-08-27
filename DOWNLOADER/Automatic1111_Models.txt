@@ -1,0 +1,2 @@
+export CIVITAI_API_KEY="407384b2a7348ae6326848c185c160ae"
+python Automatic1111_Models.py
