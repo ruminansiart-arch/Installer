@@ -54,12 +54,12 @@ def main():
     if not run_command(clone_cmd, "Cloning ComfyUI repository", cwd=workspace_path):
         sys.exit(1)
     
-    # 4. Install torch with conda environment activated
+    # 4. Install torch with conda environment activated (automatic CUDA detection)
     pip_install_torch_cmd = (
         f"conda run --prefix {conda_p311_path} "
-        f"pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118"
+        f"pip install torch torchvision torchaudio"
     )
-    if not run_command(pip_install_torch_cmd, "Installing PyTorch", cwd=comfyui_path):
+    if not run_command(pip_install_torch_cmd, "Installing PyTorch (automatic CUDA)", cwd=comfyui_path):
         sys.exit(1)
     
     # 5. Install requirements.txt
