@@ -62,8 +62,8 @@ def download_models(directories):
         "https://civitai.com/api/download/models/1920896?type=Model&format=SafeTensor&size=full&fp=fp16": "Pony Realism XL.safetensors",
         "https://civitai.com/api/download/models/2071650?type=Model&format=SafeTensor&size=pruned&fp=fp16": "CyberRealistic Pony.safetensors",
         "https://civitai.com/api/download/models/1767402?type=Model&format=SafeTensor&size=pruned&fp=fp16": "WAI-ANI-NSFW-PONYXL.safetensors",
-        "https://civitai.com/api/download/models/1207111?type=Model&format=SafeTensor&size=full&fp=fp16": "MeichiDarkMix_Reload.safetensors",
-        "https://civitai.com/api/download/models/1183299?type=Model&format=SafeTensor&size=pruned&fp=fp16": "MeichiDarkMix_Reload.safetensors",
+        "https://civitai.com/api/download/models/1207111?type=Model&format=SafeTensor&size=full&fp=fp16": "MeichiDarK_Lust_V3.safetensors",
+        "https://civitai.com/api/download/models/1183299?type=Model&format=SafeTensor&size=pruned&fp=fp16": "MeichiDarK_Sensual_V3.safetensors",
         "https://civitai.com/api/download/models/1366495?type=Model&format=SafeTensor&size=full&fp=fp16": "iNiverse Mix(SFW & NSFW).safetensors",
         "https://civitai.com/api/download/models/1075446?type=Model&format=SafeTensor&size=pruned&fp=fp16": "Realism By Stable Yogi.safetensors"
     }
@@ -249,3 +249,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
